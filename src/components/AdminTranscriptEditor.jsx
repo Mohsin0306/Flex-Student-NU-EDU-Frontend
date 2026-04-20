@@ -379,8 +379,8 @@ export default function AdminTranscriptEditor({ token, studentId, student }) {
                       <td className={bodyCell}>
                         <input
                           className={input}
-                          value={fmtNum(r.points)}
-                          onChange={(e) => setRowField(activeTerm, rIdx, 'points', Number(e.target.value || 0))}
+                          value={r.points ?? ''}
+                          onChange={(e) => setRowField(activeTerm, rIdx, 'points', e.target.value)}
                           inputMode="decimal"
                         />
                       </td>

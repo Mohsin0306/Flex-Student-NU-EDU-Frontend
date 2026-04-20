@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { FaHistory, FaUserPlus, FaUsers } from 'react-icons/fa'
-import { FiPower, FiUser } from 'react-icons/fi'
+import { FiMenu, FiPower, FiUser, FiX } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 import { clearAuth, getStoredUser, getToken } from '../utils/auth'
 import favicon from '../assets/favicon.ico'
@@ -368,6 +368,7 @@ function AdminDashboard() {
   const [error, setError] = useState('')
   const [activePage, setActivePage] = useState('Register Students')
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false)
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false)
   const profileMenuRef = useRef(null)
 
   const token = getToken()
@@ -443,6 +444,14 @@ function AdminDashboard() {
       <header className="fixed inset-x-0 top-0 z-30 border-b border-slate-200 bg-[#2f5f89]">
         <div className="mx-auto flex max-w-[1400px] items-center justify-between px-4 py-4 lg:px-6">
           <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setIsMobileSidebarOpen(true)}
+              className="grid h-9 w-9 place-items-center rounded-md border border-white/25 text-white lg:hidden"
+              aria-label="Open sidebar"
+            >
+              <FiMenu />
+            </button>
             <img src={favicon} alt="Portal" className="h-9 w-9" />
             <div className="leading-tight">
               <div className="mt-1 text-[18px] font-semibold text-white">Admin Portal</div>
@@ -486,6 +495,60 @@ function AdminDashboard() {
           </div>
         </div>
       </header>
+
+      {isMobileSidebarOpen && (
+        <div className="fixed inset-0 z-40 lg:hidden">
+          <button
+            type="button"
+            className="absolute inset-0 bg-slate-900/40"
+            onClick={() => setIsMobileSidebarOpen(false)}
+            aria-label="Close sidebar backdrop"
+          />
+          <aside className="absolute left-0 top-0 h-full w-[280px] bg-white p-3 shadow-2xl">
+            <div className="mb-2 flex items-center justify-between border-b border-slate-200 pb-2">
+              <div className="text-[14px] font-semibold text-slate-800">Menu</div>
+              <button
+                type="button"
+                onClick={() => setIsMobileSidebarOpen(false)}
+                className="grid h-8 w-8 place-items-center rounded border border-slate-200 text-slate-700"
+                aria-label="Close sidebar"
+              >
+                <FiX />
+              </button>
+            </div>
+            <div className="desktop-sidebar-scroll">
+              {sideMenu.map((item) => {
+                const Icon = item.icon
+                const isActive = activePage === item.label
+                return (
+                  <button
+                    key={item.label}
+                    type="button"
+                    onClick={() => {
+                      setActivePage(item.label)
+                      setIsMobileSidebarOpen(false)
+                    }}
+                    className={[
+                      'mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-3 text-left text-[13px] font-semibold transition',
+                      isActive ? 'bg-[#3f51b5] text-white' : 'text-slate-800 hover:bg-slate-50',
+                    ].join(' ')}
+                  >
+                    <span
+                      className={[
+                        'grid h-9 w-9 place-items-center rounded-md',
+                        isActive ? 'bg-white/15' : 'bg-slate-100 text-slate-700',
+                      ].join(' ')}
+                    >
+                      <Icon />
+                    </span>
+                    {item.label}
+                  </button>
+                )
+              })}
+            </div>
+          </aside>
+        </div>
+      )}
 
       <div className="mx-auto flex max-w-[1400px] gap-4 px-4 py-5 lg:px-6">
         <aside className="hidden w-[280px] shrink-0 lg:block">
