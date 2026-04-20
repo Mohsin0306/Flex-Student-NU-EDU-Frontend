@@ -239,13 +239,8 @@ export default function AdminMarksEditor({ token, studentId }) {
             if (sec.key !== sectionKey) return sec
             const rows = [...(sec.rows || [])]
             const row = { ...rows[rowIdx] }
-            if (field === 'stdDev') {
-              row.stdDev = value === '' ? null : Number(value)
-            } else if (['weightage', 'obtainedMarks', 'totalMarks', 'average', 'min', 'max'].includes(field)) {
-              row[field] = value === '' ? 0 : Number(value)
-            } else {
-              row[field] = value
-            }
+            // Keep raw input while typing so decimals like "1." stay intact.
+            row[field] = field === 'stdDev' && value === '' ? null : value
             rows[rowIdx] = row
             return { ...sec, rows }
           }),

@@ -297,8 +297,8 @@ export default function AdminTranscriptEditor({ token, studentId, student }) {
               <div className="mb-1 text-[12px] font-semibold text-slate-700">Cr. Att</div>
               <input
                 className={input}
-                value={fmtNum(active?.summary?.crAtt)}
-                onChange={(e) => setSummaryField(activeTerm, 'crAtt', Number(e.target.value || 0))}
+                value={active?.summary?.crAtt ?? ''}
+                onChange={(e) => setSummaryField(activeTerm, 'crAtt', e.target.value)}
                 inputMode="numeric"
               />
             </label>
@@ -306,8 +306,8 @@ export default function AdminTranscriptEditor({ token, studentId, student }) {
               <div className="mb-1 text-[12px] font-semibold text-slate-700">Cr. Ernd</div>
               <input
                 className={input}
-                value={fmtNum(active?.summary?.crEarned)}
-                onChange={(e) => setSummaryField(activeTerm, 'crEarned', Number(e.target.value || 0))}
+                value={active?.summary?.crEarned ?? ''}
+                onChange={(e) => setSummaryField(activeTerm, 'crEarned', e.target.value)}
                 inputMode="numeric"
               />
             </label>
@@ -316,15 +316,15 @@ export default function AdminTranscriptEditor({ token, studentId, student }) {
               <div className="flex gap-2">
                 <input
                   className={input}
-                  value={fmtNum(active?.summary?.cgpa)}
-                  onChange={(e) => setSummaryField(activeTerm, 'cgpa', Number(e.target.value || 0))}
+                  value={active?.summary?.cgpa ?? ''}
+                  onChange={(e) => setSummaryField(activeTerm, 'cgpa', e.target.value)}
                   inputMode="decimal"
                   placeholder="CGPA"
                 />
                 <input
                   className={input}
-                  value={fmtNum(active?.summary?.sgpa)}
-                  onChange={(e) => setSummaryField(activeTerm, 'sgpa', Number(e.target.value || 0))}
+                  value={active?.summary?.sgpa ?? ''}
+                  onChange={(e) => setSummaryField(activeTerm, 'sgpa', e.target.value)}
                   inputMode="decimal"
                   placeholder="SGPA"
                 />
@@ -368,8 +368,8 @@ export default function AdminTranscriptEditor({ token, studentId, student }) {
                       <td className={bodyCell}>
                         <input
                           className={input}
-                          value={fmtNum(r.crHrs)}
-                          onChange={(e) => setRowField(activeTerm, rIdx, 'crHrs', Number(e.target.value || 0))}
+                          value={r.crHrs ?? ''}
+                          onChange={(e) => setRowField(activeTerm, rIdx, 'crHrs', e.target.value)}
                           inputMode="numeric"
                         />
                       </td>
